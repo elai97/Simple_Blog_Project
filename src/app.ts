@@ -1,16 +1,30 @@
 import express from "express";
 import * as dotenv from 'dotenv';
 dotenv.config()
+import { urlencoded } from "body-parser";
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
+import authRouter from "./routes/auth.routes";
 import postsRoutes from "./routes/posts.route";
 import connection from "./configs/db.configs";
-import { json, urlencoded } from "body-parser";
 
 const app = express();
 
-app.use(json());
+app.use(express.json());
 
 app.use(urlencoded({ extended: true }));
 
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: "/swagger.json",
+    },
+  })
+);
+
+app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/posts", postsRoutes);
 
 app.use(
@@ -18,7 +32,6 @@ app.use(
     err: Error,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
   ) => {
     res.status(500).json({ message: err.message });
   }

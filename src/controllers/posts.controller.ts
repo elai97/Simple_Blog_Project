@@ -22,7 +22,7 @@ export const getAllPost: RequestHandler = async (req, res, next) => {
   const allPosts: Posts[] = await Posts.findAll();
   return res
     .status(200)
-    .json({ message: "Post fetched successfully", data: allPosts });
+    .json({ message: "Post(s) fetched successfully", data: allPosts });
 };
 
 export const getPostById: RequestHandler = async (req, res, next) => {

@@ -1,3 +1,4 @@
+import { authJwt } from '../middlewares';
 import { Router } from "express";
 
 import {
@@ -8,16 +9,16 @@ import {
   getPostById,
 } from "../controllers/posts.controller";
 
-const router = Router();
+const postRouter = Router();
 
-router.post("/", createPost);
+postRouter.post("/", authJwt.verifyToken, createPost);
 
-router.get("/", getAllPost);
+postRouter.get("/", authJwt.verifyToken, getAllPost);
 
-router.get("/:id", getPostById);
+postRouter.get("/:id", authJwt.verifyToken, getPostById);
 
-router.put("/:id", updatePost);
+postRouter.put("/:id", authJwt.verifyToken, updatePost);
 
-router.delete("/:id", deletePost);
+postRouter.delete("/:id", authJwt.verifyToken, deletePost);
 
-export default router;
+export default postRouter;

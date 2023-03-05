@@ -1,0 +1,161 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Simple Blog API Documentation",
+        "description": "This document outlines the endpoints, methods, and parameters available for accessing and interacting with the blog API.",
+        "contact": {
+            "email": "mailizuchukwu042@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensourse.org/license/MIT"
+        }
+    },
+    "host": "http://localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API endpoints for authentication."
+        },
+        {
+            "name": "Posts",
+            "description": "API endpoints for CRUD operation on posts."
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user",
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"credentials",
+						"description":"provide a username, email and password",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/users"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema":
+                        {
+                            "$ref": "#/definitions/users"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Signin to generate token",
+                "requestBody": {
+                    "description": "Upon signin a token is generate and used to access other endpoints",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/signin"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/users"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "users": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "signin": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "post": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "Posts": {
+            "type": "object",
+            "properties": {
+                "Posts": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/post"
+                    }
+                }
+            }
+        }
+    }
+}

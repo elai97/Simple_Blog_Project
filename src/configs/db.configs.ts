@@ -1,8 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import { Posts } from "../models/post.models";
+import { Users } from "../models/user.model";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config({ path: '/custom/path/to/.env' })
+require('dotenv').config()
 
 const connection = new Sequelize({
   dialect: "mysql",
@@ -11,7 +12,7 @@ const connection = new Sequelize({
   password: process.env.DB_PWD,
   database: process.env.DB_NAME,
   logging: false,
-  models: [Posts],
+  models: [Posts, Users],
 });
 
 export default connection;
