@@ -17,7 +17,7 @@ postRouter.get("/", authJwt.verifyToken, getAllPost);
 
 postRouter.get("/:id", authJwt.verifyToken, getPostById);
 
-postRouter.put("/:id", authJwt.verifyToken, updatePost);
+postRouter.patch("/:id", authJwt.verifyToken, updatePost);
 
 postRouter.delete("/:id", authJwt.verifyToken, deletePost);
 
