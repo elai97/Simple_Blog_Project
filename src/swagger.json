@@ -12,7 +12,7 @@
             "url": "https://opensourse.org/license/MIT"
         }
     },
-    "host": "http://localhost:3000",
+    "host": "localhost:3000",
     "basePath": "/api/v1",
     "tags": [
         {
@@ -63,7 +63,7 @@
                         }
                     },
                     "400": {
-                        "description": "Failed. Bad post data."
+                        "description": "Failed."
                     }
                 }
             }
@@ -74,20 +74,21 @@
                     "Users"
                 ],
                 "summary": "Signin to generate token",
-                "requestBody": {
-                    "description": "Upon signin a token is generate and used to access other endpoints",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/definitions/signin"
-                            }
-                        }
-                    }
-                },
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"credentials",
+						"description":"provide a username, email and password",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/signin"
+						}
+					}
+                ],
                 "produces": [
                     "application/json"
                 ],
+                
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -96,7 +97,148 @@
                         }
                     },
                     "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a post",
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"body",
+						"description":"enter title and content",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/post"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/post"
+                        }
+                    },
+                    "400": {
                         "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a post",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/posts/:post_id": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get a specific post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id to get post",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Update a post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Delete a post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id to delete",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed."
                     }
                 }
             }

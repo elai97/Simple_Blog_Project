@@ -15,10 +15,10 @@ postRouter.post("/", authJwt.verifyToken, createPost);
 
 postRouter.get("/", authJwt.verifyToken, getAllPost);
 
-postRouter.get("/:id", authJwt.verifyToken, getPostById);
+postRouter.get("/:post_id", authJwt.verifyToken, getPostById);
 
-postRouter.patch("/:id", authJwt.verifyToken, updatePost);
+postRouter.patch("/:post_id", authJwt.verifyToken, updatePost);
 
-postRouter.delete("/:id", authJwt.verifyToken, deletePost);
+postRouter.delete("/:post_id", authJwt.verifyToken, deletePost);
 
 export default postRouter;

@@ -1,6 +1,7 @@
 import express from "express";
 import * as dotenv from 'dotenv';
-dotenv.config()
+dotenv.config();
+import cors from 'cors';
 import { urlencoded } from "body-parser";
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
@@ -13,6 +14,12 @@ const app = express();
 app.use(express.json());
 
 app.use(urlencoded({ extended: true }));
+
+const corsOptions: cors.CorsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
 
 app.use(
   "/docs",
@@ -45,6 +52,9 @@ connection
   .catch((err) => {
     console.log("Error", err);
   });
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
-});
+  // TODO remove app.listen before deploy to AWS
+// app.listen(3000, () => {
+//   console.log("Server started on port 3000");
+// });
+
+export default app;

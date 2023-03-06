@@ -13,6 +13,7 @@ const connection = new Sequelize({
   database: process.env.DB_NAME,
   logging: false,
   models: [Posts, Users],
+  pool: {}
 });
 
 export default connection;
