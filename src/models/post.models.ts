@@ -12,6 +12,7 @@ export class Posts extends Model {
     primaryKey: true,
   })
   post_Id!: string;
+  
   @Column({
     type: DataType.STRING,
     allowNull: false,
