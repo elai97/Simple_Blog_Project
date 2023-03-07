@@ -8,7 +8,7 @@ import * as swaggerDocument from './swagger.json';
 import authRouter from './routes/auth.routes';
 import postsRoutes from './routes/posts.route';
 import connection from './configs/db.configs';
-import serverless from 'serverless-http';
+// import serverless from 'serverless-http';
 
 const app = express();
 
@@ -48,8 +48,8 @@ connection
     console.log('Error', err);
   });
 // TODO remove app.listen before deploy to AWS
-// app.listen(3000, () => {
-//   console.log('Server started on port 3000');
-// });
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
 
-exports.handler = serverless(app);
+// exports.handler = serverless(app);
