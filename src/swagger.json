@@ -1,0 +1,303 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Simple Blog API Documentation",
+        "description": "This document outlines the endpoints, methods, and parameters available for accessing and interacting with the blog API.",
+        "contact": {
+            "email": "mailizuchukwu042@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensourse.org/license/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API endpoints for authentication."
+        },
+        {
+            "name": "Posts",
+            "description": "API endpoints for CRUD operation on posts."
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user",
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"credentials",
+						"description":"provide a username, email and password",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/users"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema":
+                        {
+                            "$ref": "#/definitions/users"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Signin to generate token",
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"credentials",
+						"description":"provide a username, email and password",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/signin"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/users"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a post",
+                "parameters":[  
+					{  
+						"in":"body",
+						"name":"body",
+						"description":"enter title and content",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/post"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/post"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a post",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/posts/:post_id": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get a specific post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id to get post",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Update a post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Delete a post",
+                "parameters":[  
+					{  
+						"in":"post_id",
+						"name":"Post Id",
+						"description":"provide post_id to delete",
+						"required":true,
+						"schema":{  
+							"type":"string"
+						}
+					}
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                        
+                    },
+                    "400": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "users": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "signin": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "post": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "Posts": {
+            "type": "object",
+            "properties": {
+                "Posts": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/post"
+                    }
+                }
+            }
+        }
+    }
+}
